@@ -1,23 +1,29 @@
 import { motion } from "framer-motion";
-import { PhotoSlot } from "./PhotoSlot";
+import sobreImg from "@/assets/greensouk/interior-graneis.jpg";
 
 const selos = ["Natural", "Granel", "Saudável", "Acolhedor", "Sofisticado"];
 
 export function Sobre() {
   return (
-    <section id="sobre" className="py-24 md:py-32 bg-cream">
-      <div className="mx-auto max-w-7xl px-5 md:px-8 lg:px-10 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <section id="sobre" className="py-20 md:py-32 bg-cream">
+      <div className="mx-auto max-w-7xl px-5 md:px-8 lg:px-10 grid lg:grid-cols-2 gap-10 md:gap-12 lg:gap-20 items-center">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="relative"
         >
-          <PhotoSlot
-            ratio="aspect-[5/6]"
-            tone="clay"
-            label="Foto institucional"
-          />
+          <div className="overflow-hidden rounded-[1.75rem] border border-border/70 shadow-[0_30px_80px_-30px_oklch(0.30_0.05_145_/_0.35)]">
+            <img
+              src={sobreImg}
+              alt="Interior do mercado natural Green Souk com prateleiras de grãos a granel em potes de vidro"
+              loading="lazy"
+              width={1536}
+              height={1024}
+              className="h-full w-full object-cover aspect-[5/6]"
+            />
+          </div>
         </motion.div>
 
         <motion.div
