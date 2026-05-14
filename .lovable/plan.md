@@ -1,64 +1,50 @@
-# Green Souk Mercado Natural — Plano
+## Plano — Refino premium Green Souk
 
-Landing page única, moderna e elegante, com rolagem suave entre seções e duas unidades destacadas.
+### 1. Fotos reais via Firecrawl
+- Conectar o Firecrawl (`standard_connectors--connect`) — necessário para acessar o Instagram público sem bloqueio 403.
+- Rodar `firecrawl scrape` em `instagram.com/greensoukmercado/` com formato `html` + `links` para extrair URLs `cdninstagram.com` das postagens em destaque.
+- Selecionar manualmente ~12 imagens de melhor qualidade nas categorias: ambiente da loja, grãos/castanhas a granel, produtos em destaque, atendimento, lifestyle.
+- Baixar via `curl` para `src/assets/instagram/` e importar como ES6 (otimização Vite).
+- Caso o Instagram bloqueie mesmo via Firecrawl, fallback: pedir upload direto no chat OU gerar 4–6 imagens premium fotorrealistas (mercado natural, grãos em potes de vidro, castanhas) com `imagegen` standard como ponte temporária — sem aparência IA óbvia.
 
-## Identidade visual
+### 2. Substituição nos componentes
+Trocar `<PhotoSlot/>` por `<img>` real (com `alt` descritivo + `loading="lazy"`) em:
+- `Hero.tsx` — imagem hero principal (loja/grãos)
+- `Sobre.tsx` — foto do ambiente
+- `Lifestyle.tsx` — faixa editorial (3 fotos)
+- `InstagramGrid.tsx` — grid 6 imagens reais com link para o post
+- `Categorias.tsx` — opcional: thumbnail por categoria
 
-- **Paleta** (tokens HSL/oklch em `src/styles.css`):
-  - Verde-oliva profundo (primário), areia/linho (background), terracota suave (acento), creme off-white, marrom-castanha para texto.
-- **Tipografia**: display serif elegante (ex.: Fraunces ou Cormorant) + sans humanista (ex.: DM Sans / Manrope) — nada de Inter/Poppins.
-- **Estética**: muito espaço em branco, fotografia natural, micro-texturas orgânicas, cantos suaves, sombras discretas, animações sutis (framer-motion: fade/slide on scroll).
+### 3. Refino visual (hierarquia + tipografia + espaçamento)
+- Ajustar escala tipográfica do `Hero` (display maior em desktop, line-height mais respirado).
+- Padronizar espaçamentos verticais entre seções (`py-24 md:py-32` → tokens consistentes).
+- Refinar `border-radius` para 1.5rem nos cards principais; sombras mais discretas e coloridas (verde-oliva translúcido).
+- Acertar contraste do `--leaf-deep` no logo "GREEN" e tracking do "Souk".
 
-## Estrutura da página (single page com âncoras suaves)
+### 4. Micro-animações
+- Adicionar `framer-motion` reveal em `Sobre`, `Categorias`, `Lifestyle` (já tem em alguns; padronizar curva `[0.22, 1, 0.36, 1]` e stagger).
+- Hover premium nos cards de categoria: lift sutil + glow verde + escala da imagem interna.
+- Parallax leve na imagem do Hero (translateY no scroll).
+- Botão WhatsApp flutuante mobile (FAB) com pulse discreto.
 
-```text
-[Header fixo translúcido]
-  Logo · Sobre · Categorias · Unidades · Contato · [WhatsApp CTA]
+### 5. Mobile experience
+- Aumentar tap targets para 48px mínimo (botões, links nav).
+- Ajustar `Hero` mobile: padding lateral, tamanho do H1, CTAs em stack full-width.
+- Otimizar `Unidades` mobile: cards empilhados, mapa com altura reduzida.
+- Revisar `Header` mobile menu: tipografia maior, espaçamento, animação de abertura.
+- Testar viewports 375 e 390 com browser tools após implementação.
 
-1. Hero
-   - H1 elegante, subtítulo, 2 CTAs (WhatsApp + Ver categorias)
-   - Imagem hero (placeholder até envio)
+### 6. SEO local (incremento)
+- Adicionar `geo.region`, `geo.placename`, `geo.position` meta tags em `index.tsx`.
+- Reforçar JSON-LD `LocalBusiness` com `priceRange`, `areaServed: Campo Grande`, `openingHoursSpecification` estruturado.
 
-2. Sobre (Nosso Mercado)
-   - Bloco texto + imagem lado a lado
-   - Pequenos selos: Natural · Granel · Saudável · Acolhedor
+### 7. QA
+- `browser--navigate_to_sandbox` + screenshots em desktop (1366) e mobile (390).
+- Verificar console limpo, links WhatsApp corretos, imagens carregando.
 
-3. Categorias (grid 6–8 cards)
-   - Grãos · Castanhas · Cereais · Farinhas · Especiarias · Granolas · Chás · Suplementos naturais
+### Arquivos previstos
+- novos: `src/assets/instagram/*.jpg` (downloads), possivelmente `src/components/site/WhatsFab.tsx`
+- editados: `Hero`, `Sobre`, `Lifestyle`, `InstagramGrid`, `Categorias`, `Header`, `Unidades`, `styles.css`, `routes/index.tsx`
 
-4. Diferenciais (3–4 colunas com ícones lucide finos)
-   - Curadoria · Granel · Atendimento humano · Qualidade premium
-
-5. Lifestyle / Inspiração
-   - Faixa de imagens estilo editorial + frase de marca
-
-6. Unidades (2 cards lado a lado)
-   - Unidade Antônio Maria Coelho — R. Antônio Maria Coelho, 163 · WhatsApp (67) 99977-9718
-   - Unidade Marquês de Lavradio — R. Marquês de Lavradio, 626 · WhatsApp (67) 98146-0154
-   - Horário: Seg–Sex 8h–18h30 · Sáb 8h–13h
-   - Botões: WhatsApp + Como chegar (Google Maps)
-
-7. Grid Instagram (placeholder 6 imagens)
-
-8. CTA final + Footer
-   - Logo, navegação, redes sociais, copyright
-```
-
-## Conteúdo / Copy
-
-Copy em português, tom acolhedor e sofisticado, seguindo o briefing original (mercado natural moderno, confiável, bonito).
-
-## Técnico
-
-- TanStack Start (rota única `/` com âncoras `#sobre`, `#categorias`, `#unidades`, `#contato` — exceção válida para landing rolável).
-- Tokens semânticos no `src/styles.css` (oklch), variantes shadcn customizadas, sem cores hardcoded.
-- Componentes: `Header`, `Hero`, `Sobre`, `Categorias`, `Diferenciais`, `Lifestyle`, `Unidades`, `InstagramGrid`, `Footer`.
-- WhatsApp via `https://wa.me/55679...` com mensagem pré-preenchida.
-- SEO: title, meta description, og:tags, JSON-LD `LocalBusiness` × 2 (uma por unidade), `lang="pt-BR"`, H1 único, alt text em todas as imagens.
-- Imagens: placeholders neutros (divs com cor do tema + label) até você enviar as fotos reais — substituição direta depois.
-- Responsivo mobile-first, animações framer-motion discretas.
-
-## Pendente do usuário (após implementação)
-
-- Fotos reais (hero, sobre, categorias, lifestyle, instagram) para substituir placeholders.
-- Logo oficial (se houver) — caso contrário, criamos lockup tipográfico elegante.
+### Pendência ao usuário
+Aprovar a conexão do Firecrawl quando o picker abrir. Se o scrape do Instagram falhar mesmo via Firecrawl (Meta bloqueia agressivamente), confirmar fallback: upload direto OU imagens geradas premium.
