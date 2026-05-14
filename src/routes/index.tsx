@@ -10,6 +10,7 @@ import { Unidades, LocalBusinessJsonLd } from "@/components/site/Unidades";
 import { InstagramGrid } from "@/components/site/InstagramGrid";
 import { CtaFinal } from "@/components/site/CtaFinal";
 import { Footer } from "@/components/site/Footer";
+import { WhatsFab } from "@/components/site/WhatsFab";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -37,6 +38,10 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "pt_BR" },
       { property: "og:url", content: "/" },
+      { name: "geo.region", content: "BR-MS" },
+      { name: "geo.placename", content: "Campo Grande" },
+      { name: "geo.position", content: "-20.4697;-54.6201" },
+      { name: "ICBM", content: "-20.4697, -54.6201" },
     ],
     links: [{ rel: "canonical", href: "/" }],
   }),
@@ -59,6 +64,7 @@ function Index() {
         <CtaFinal />
       </main>
       <Footer />
+      <WhatsFab />
       <LocalBusinessJsonLd />
     </div>
   );
