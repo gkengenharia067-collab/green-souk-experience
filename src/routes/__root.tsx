@@ -79,7 +79,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Green Souk Mercado Natural: grãos, castanhas, cereais, farinhas e produtos naturais selecionados com curadoria. Duas unidades em Campo Grande/MS.",
       },
       { name: "author", content: "Green Souk Mercado Natural" },
-      { property: "og:title", content: "Green Souk — Mercado Natural" },
+      { property: "og:title", content: "Green Souk — Mercado Natural em Campo Grande/MS" },
       {
         property: "og:description",
         content:
@@ -87,6 +87,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Green Souk — Mercado Natural em Campo Grande/MS" },
+      { name: "description", content: "Green Souk Mercado Natural is a sophisticated online presence for a natural market." },
+      { property: "og:description", content: "Green Souk Mercado Natural is a sophisticated online presence for a natural market." },
+      { name: "twitter:description", content: "Green Souk Mercado Natural is a sophisticated online presence for a natural market." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/29276459-f7c0-4514-b0cb-cfbeaa25550b/id-preview-280311fc--87388a8b-3246-408c-953d-e4bed1ad3767.lovable.app-1778763061586.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/29276459-f7c0-4514-b0cb-cfbeaa25550b/id-preview-280311fc--87388a8b-3246-408c-953d-e4bed1ad3767.lovable.app-1778763061586.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
